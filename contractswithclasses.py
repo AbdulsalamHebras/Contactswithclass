@@ -23,16 +23,22 @@ class ContactManager:
             json.dump(self.contacts, file, indent=4)
 
     def add_contact(self):
+        ID = input("Enter te ID: ")
         name = input("Enter the name: ")
         number = input("Enter the number: ")
         email = input("Enter the email: ")
+
+        for contact in self.contacts:
+            if contact['ID'] == ID:
+                print("The id already exists.")
+                return
 
         for contact in self.contacts:
             if contact['number'] == number:
                 print("The number already exists.")
                 return
 
-        contact = {'name': name, 'number': number, 'email': email}
+        contact = {'ID': ID,'name': name, 'number': number, 'email': email}
         self.contacts.append(contact)
         self.save_contacts()
         print("Contact successfully saved.")
@@ -52,15 +58,19 @@ class ContactManager:
         for contact in self.contacts:
             if contact['name'] == name:
                 print("Contact details:")
+                print(f"ID: {contact['ID']}")
                 print(f"Name: {contact['name']}")
                 print(f"Number: {contact['number']}")
                 print(f"Email: {contact['email']}")
                 print("Leave empty if you don't want to edit a field.")
 
+                new_ID = input("Enter the new ID: ")
                 new_name = input("Enter the new name: ")
                 new_number = input("Enter the new number: ")
                 new_email = input("Enter the new email: ")
 
+                if new_ID:
+                    contact['ID'] = new_ID
                 if new_name:
                     contact['name'] = new_name
                 if new_number:
@@ -78,6 +88,7 @@ class ContactManager:
         for contact in self.contacts:
             if contact['name'] == name:
                 print("Contact details:")
+                print(f"ID: {contact['ID']}")
                 print(f"Name: {contact['name']}")
                 print(f"Number: {contact['number']}")
                 print(f"Email: {contact['email']}")
@@ -89,6 +100,7 @@ class ContactManager:
             print("No contacts found.")
         else:
             for contact in self.contacts:
+                print(f"ID: {contact['ID']}")
                 print(f"Name: {contact['name']}")
                 print(f"Number: {contact['number']}")
                 print(f"Email: {contact['email']}")
